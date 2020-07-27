@@ -5,10 +5,10 @@ Before you begin learning, you need to install the required CLIs to create and m
 
 This lab includes the information for installing the following CLIs and plug-ins:
 
-* IBM Cloud CLI
-* IBM Cloud Kubernetes Service plug-in
-* IBM Cloud Container Registry plug-in
-* Kubernetes CLI
+* IBM Cloud CLI (ibmcloud)
+* IBM Cloud Kubernetes Service plug-in (ibmcloud ks)
+* IBM Cloud Container Registry plug-in (ibmcloud cr)
+* Kubernetes CLI (kubectl)
 * Optional: Docker
 
 If you already have the CLIs and plug-ins, you can skip this lab and proceed to the next one.
@@ -30,10 +30,20 @@ If you already have the CLIs and plug-ins, you can skip this lab and proceed to 
    
    **Note:** The prefix for running commands by using the IBM Cloud Kubernetes Service plug-in is `ibmcloud ks`.
 
-2. To verify that the plug-in is installed properly, run the following command:
-```ibmcloud plugin list```
+2. To verify that the plug-in is installed properly, run the following command:`ibmcloud plugin list`
+
 
    The IBM Cloud Kubernetes Service plug-in is displayed in the results as `container-service`.
+# Switch cluster
+```
+$ ibmcloud ks cluster config --cluster yiyicluster-free
+OK
+The configuration for yiyicluster-free was downloaded successfully.
+
+Added context for yiyicluster-free to the current kubeconfig file.
+You can now execute 'kubectl' commands against your cluster. For example, run 'kubectl get nodes'.
+```
+note that openshift cluster `ibmcloud ks cluster config --cluster yiyi-openshift4.3.23 --admin` to avoid passing in password everytime.
 
 # Download the IBM Cloud Container Registry plug-in
 
@@ -46,8 +56,15 @@ ibmcloud plugin install container-registry -r 'IBM Cloud'
    
    **Note:** The prefix for running registry commands is `ibmcloud cr`.
 
-2. To verify that the plug-in is installed properly, run `ibmcloud plugin list`
-
+2. To verify that the plug-in is installed properly, run 
+```
+$ ibmcloud plugin list
+Plugin Name                            Version   Status   
+container-registry                     0.1.471      
+container-service/kubernetes-service   1.0.99       
+cloud-functions/wsk/functions/fn       1.0.40    Update Available   
+cloud-object-storage                   1.1.3 
+```
    The plug-in is displayed in the results as `container-registry`.
 
 # Download the Kubernetes CLI
