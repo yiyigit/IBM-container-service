@@ -207,6 +207,33 @@ In this example, we have defined a HTTP liveness probe to check health of the co
       ```
 
    2. Copy the **id-token** value that is shown in the output.     
+   Or Create the dashboard service account
+		`kubectl create serviceaccount dashboard-admin-yiyi` This will create a service account named `dashboard-admin-yiyi` in the default namespace. Next bind the dashboard-admin-service-account service account to the cluster-admin role.
+	
+		`kubectl create clusterrolebinding dashboard-admin-yiyi --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-yiyi`
+      When we created the dashboard-admin-sa service account Kubernetes also created a secret for it. List secrets using:
+      
+      ```
+		$kubectl get secrets
+		NAME                               TYPE                                  DATA   AGE
+		dashboard-admin-yiyi-token-qdq5n   kubernetes.io/service-account-token   3      68s
+		
+      $ kubectl describe secret dashboard-admin-yiyi-token-qdq5n
+		Name:         dashboard-admin-yiyi-token-qdq5n
+		Namespace:    default
+		Labels:       <none>
+		Annotations:  kubernetes.io/service-account.name: dashboard-admin-yiyi
+		              kubernetes.io/service-account.uid: c06e6bff-5ec0-4f89-a258-79935ee9c602
+		
+		Type:  kubernetes.io/service-account-token
+		
+		Data
+		====
+		ca.crt:     1874 bytes
+		namespace:  7 bytes
+		token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IlBmRFNHQTQtODBuaEVCdnZ3OTFfUG1xUmxhOWRQQW9YbDdocDR6Y1VOS0kifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRhc2hib2FyZC1hZG1pbi15aXlpLXRva2VuLXFkcTVuIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRhc2hib2FyZC1hZG1pbi15aXlpIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiYzA2ZTZiZmYtNWVjMC00Zjg5LWEyNTgtNzk5MzVlZTljNjAyIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OmRlZmF1bHQ6ZGFzaGJvYXJkLWFkbWluLXlpeWkifQ.YeBHFTmy-TEq3eypeoOYreba2lQW9H9kYfRmJwbbF3W1mavZRw4E9Qqcorh2eu2DASd0YjTZ-yDN1dkNJe7aIBGjo36_SGLS2y0-58gQg49xPl9R38FTKEVe2-N1qvXh0Xz6euHhc_4EARIogjHDqcC_--tmhWi8nUMvVKJQUjoHwCOAlIMEjLHjuaiASg__38GaKbOaxsvQSDhI-ole8-x0dqNAh1IJ1Jd2jgYzEtzRvk-q_-2xHkXRU5rLFnLZn-9BBHGlLJSQHRuJKP0kO2v7DOFuDRiR1b8Ke5IIFGcXv7BN2RYblPTnv_JZIcYR71ocMlIkZLkoSMoGIrh7H-Pd2P2xDCo8uLHzoHNcgnL2JKiEIGFbiNFv-tQ49KpcnDjtQf1P6JIGnjzjVmfA1jOhgKTSMt83Dg7Y3bRSyJooUJlMwUaH7wjTToo5N-xegA3_9gcwTUNIlZiFtZVGlsjeC8SPYtoTjNFGAdPGbpvFxK_tUm4a8uxOMKZ8Yh5vM6wo_iRAJxzX77EbXZj_UJ5LGj-Uy4jhIjY2FA0lI4iXUxRCr2Y0xBRY649Cw6xnAMHsyQey9T-XAIWTCssVxe7E0MNxbnwBTLiW28BM8gwYunG3AOusMplwmNGfuzwraJD5LH27oAL2o1xphO_FxheErCOBhyUjHUH5A7cYam0
+		```
+
 
    3. Set the proxy with the default port number.
 
