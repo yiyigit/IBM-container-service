@@ -52,6 +52,9 @@ In order to begin using the Watson Tone Analyzer (the IBM Cloud service for this
 
 2. Verify the secret was created by running `kubectl get secrets`.
 
+Q: After a service is bound to a cluster, you expose which item to the pod so that the pod can use the service?
+- secret
+
 # 4. Create pods and services
 
 Now that the service is bound to the cluster, you want to expose the secret to your pod so that it can utilize the service. To do this, create a secret datastore as a part of your deployment configuration. This has been done for you in watson-deployment.yml:
