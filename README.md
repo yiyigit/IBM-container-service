@@ -22,33 +22,6 @@ This lab is an introduction to using containers on Kubernetes in the IBM Cloud K
 # Prerequisites
 * A Pay-As-You-Go or Subscription [IBM Cloud account](https://cloud.ibm.com/registration/)
 
-# Virtual machines
-
-Prior to containers, most infrastructure ran not on bare metal, but atop hypervisors managing multiple virtualized operating systems (OSes). This arrangement allowed isolation of applications from one another on a higher level than that provided by the OS. These virtualized operating systems see what looks like their own exclusive hardware. However, this also means that each of these virtual operating systems are replicating an entire OS, taking up disk space.
-
-# Containers
-
-Containers provide isolation similar to VMs, except provided by the OS and at the process level. Each container is a process or group of processes run in isolation. Typical containers explicitly run only a single process, as they have no need for the standard system services. What they usually need to do can be provided by system calls to the base OS kernel.
-
-The isolation on linux is provided by a feature called 'namespaces'. Each different kind of isolation (IE user, cgroups) is provided by a different namespace.
-
-This is a list of some of the namespaces that are commonly used and visible to the user:
-
-* PID - process IDs
-* USER - user and group IDs
-* UTS - hostname and domain name
-* NS - mount points
-* NET - network devices, stacks, and ports
-* CGROUPS - control limits and monitoring of resources
-
-# VM vs container
-
-Traditional applications are run on native hardware. A single application does not typically use the full resources of a single machine. We try to run multiple applications on a single machine to avoid wasting resources. We could run multiple copies of the same application, but to provide isolation we use VMs to run multiple application instances (VMs) on the same hardware. These VMs have full operating system stacks which make them relatively large and inefficient due to duplication both at runtime and on disk.
-
-![Containers versus VMs](images/VMvsContainer.png)
-
-Containers allow you to share the host OS. This reduces duplication while still providing the isolation. Containers also allow you to drop unneeded files such as system libraries and binaries to save space and reduce your attack surface. If SSHD or LIBC are not installed, they cannot be exploited.
-
 # Get set up
 
 Before we dive into Kubernetes, you need to provision a cluster for your containerized app. Then you won't have to wait for it to be ready for the subsequent labs.
@@ -62,24 +35,10 @@ Before we dive into Kubernetes, you need to provision a cluster for your contain
 
 Let's talk about Kubernetes orchestration for containers before we build an application on it. We need to understand the following facts about it:
 
-* What is Kubernetes, exactly?
 * How was Kubernetes created?
 * Kubernetes architecture
 * Kubernetes resource model
 * Kubernetes at IBM
-* Let's get started
-
-# What is Kubernetes?
-
-Now that we know what containers are, let's define what Kubernetes is. Kubernetes is a container orchestrator to provision, manage, and scale applications. In other words, Kubernetes allows you to manage the lifecycle of containerized applications within a cluster of nodes (which are a collection of worker machines, for example, VMs, physical machines etc.).
-
-Your applications may need many other resources to run such as Volumes, Networks,  and Secrets that will help you to do things such as connect to databases, talk to firewalled backends, and secure keys. Kubernetes helps you add these resources into your application. Infrastructure resources needed by applications are managed declaratively.
-
-**Fast fact:** Other orchestration technologies are Mesos and Swarm.
-
-The key paradigm of kubernetes is it’s Declarative model. The user provides the "desired state" and Kubernetes will do it's best make it happen. If you need 5 instances, you do not start 5 separate instances on your own but rather tell Kubernetes that you need 5 instances and Kubernetes will reconcile the state automatically. Simply at this point you need to know that you declare the state you want and Kubernetes makes that happen. If something goes wrong with one of your instances and it crashes, Kubernetes still knows the desired state and creates a new instances on an available node.
-
-**Fun to know:** Kubernetes goes by many names. Sometimes it is shortened to _k8s_ (losing the internal 8 letters), or _kube_. The word is rooted in ancient Greek and means "Helmsman". A helmsman is the person who steers a ship. We hope you can seen the analogy between directing a ship and the decisions made to orchestrate containers on a cluster.
 
 # How was Kubernetes created?
 
@@ -115,8 +74,6 @@ Kubernetes Infrastructure defines a resource for every purpose. Each resource is
 * Service Accounts provides an identity for processes that run in a Pod
 * Services  is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service.
 * Stateful Sets is the workload API object used to manage stateful applications.
-* and more...
-
 
 ![Relationship of pods, nodes, and containers](/images/container-pod-node-master-relationship.jpg)
 
@@ -146,18 +103,6 @@ Kubernetes provides us with a client interface through ‘kubectl’. Kubectl co
 5. Scheduler assigns new pods to a Node based on a criteria. Scheduler makes decisions to run Pods on specific Nodes in the cluster. Scheduler modifies the model with the node information.
 6. Kubelet on a node detects a pod with an assignment to itself, and deploys the requested containers via the container runtime (e.g. Docker). Each Node watches the storage to see what pods it is assigned to run. It takes necessary actions on resource assigned to it like create/delete Pods.
 7. Kubeproxy manages network traffic for the pods – including service discovery and load-balancing. Kubeproxy is responsible for communication between Pods that want to interact.
-
-
-# Lab information
-
-IBM Cloud provides the capability to run applications in containers on Kubernetes. The IBM Cloud Kubernetes Service runs Kubernetes clusters which deliver the following:
-
-* Powerful tools
-* Intuitive user experience
-* Built-in security and isolation to enable rapid delivery of secure applications
-* Cloud services including cognitive capabilities from Watson
-* Capability to manage dedicated cluster resources for both stateless applications and stateful workloads
-
 
 #  Lab overview
 
