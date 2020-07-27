@@ -257,3 +257,5 @@ hw-demo-deployment-6c965d5dcd   3         3         2       5d22h
 watson-pod-57ccbb6cd8           1         1         1       5d17h
 watson-talk-pod-569c554fc6      1         1         1       5d17h
 ```
+## kubectl delete deployment <NAME>
+Then all corresponded pods of <name> will terminate by itself. Otherwise deleting specific pods will only result into creating new pods.
