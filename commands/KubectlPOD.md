@@ -1,5 +1,16 @@
 ## kubectl get pods
 
+|Output format|	Description|
+|---|----|
+|-o=custom-columns=<spec>	|Print a table using a comma separated list of custom columns|
+|-o=custom-columns-file=<filename>|Print a table using the custom columns template in the <filename> file|
+|-o=json|Output a JSON formatted API object|
+|-o=jsonpath=|Print the fields defined in a jsonpath expression|
+|-o=jsonpath-file=<filename>|Print the fields defined by the jsonpath expression in the <filename> file|
+|-o=name|Print only the resource name and nothing else|
+|-o=wide|Output in the plain-text format with any additional information, and for pods, the node name is included|
+|-o=yaml|Output a YAML formatted API object|
+
 ## kubectl get pods -o wide
 ```
 NAME                                  READY   STATUS             RESTARTS   AGE     IP               NODE             NOMINATED NODE   READINESS GATES
@@ -257,5 +268,5 @@ hw-demo-deployment-6c965d5dcd   3         3         2       5d22h
 watson-pod-57ccbb6cd8           1         1         1       5d17h
 watson-talk-pod-569c554fc6      1         1         1       5d17h
 ```
-## kubectl delete deployment <NAME>
+## kubectl delete deployment NAME
 Then all corresponded pods of <name> will terminate by itself. Otherwise deleting specific pods will only result into creating new pods.
