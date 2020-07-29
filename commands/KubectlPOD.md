@@ -1,3 +1,5 @@
+## kubectl get svc,deploy,po --all-namespaces
+service, deploy, pods
 ## kubectl get pods
 
 |Output format|	Description|
